@@ -27,55 +27,58 @@ import jakarta.validation.Valid;
 @RestController
 @CrossOrigin(origins = "*")
 public class CustomerController {
-	
-	@Autowired
-	private CustomerService customerService;
-	
-	
-	@PostMapping("/customers")
-	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
-		
-		Customer savedCustomer= customerService.addCustomer(customer);
-		
-		
-		return new ResponseEntity<Customer>(savedCustomer,HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/customers")
-	public  ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer,@RequestParam(required = false) String key ) throws CustomerException {
-		
-		
-		Customer updatedCustomer= customerService.updateCustomer(customer, key);
-				
-		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
-		
-	}
-	
-	@DeleteMapping("/customers/{customerId}/{token}/{adminId}")
-	public  ResponseEntity<Customer> deleteCustomerById(@PathVariable Integer customerId,@PathVariable String token,@PathVariable Integer adminId ) throws CustomerException {
-		
-		
-		Customer deletedCustomer= customerService.deleteCustomer(customerId, token,adminId);
-				
-		return new ResponseEntity<Customer>(deletedCustomer,HttpStatus.OK);
-	}
-	
-	@GetMapping("/customers/{customerId}/{token}/{adminId}")
-	public  ResponseEntity<Customer> getCustomerById(@PathVariable Integer customerId,@PathVariable String token,@PathVariable Integer adminId ) throws CustomerException {
-		
-		
-		Customer customer= customerService.viewCustomer(customerId, token,adminId);
-				
-		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
-	}
-	
-	@GetMapping("/customers/{token}/{adminId}")
-	public  ResponseEntity<List<Customer>> getAllCustomer(@PathVariable String token,@PathVariable Integer adminId ) throws CustomerException {
-		
-		
-		List<Customer> customerList = customerService.viewAllCustomer(token,adminId);
-				
-		return new ResponseEntity<List<Customer>>(customerList,HttpStatus.OK);
-	}
 
+    @Autowired
+    private CustomerService customerService;
+
+    // Method to save a new customer
+    @PostMapping("/customers")
+    public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
+        // Call the service to add the customer
+        Customer savedCustomer = customerService.addCustomer(customer);
+        // Return the saved customer with HTTP status 201 (Created)
+        return new ResponseEntity<Customer>(savedCustomer, HttpStatus.CREATED);
+    }
+
+    // Method to update an existing customer
+    @PutMapping("/customers")
+    public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer,
+                                                   @RequestParam(required = false) String key) throws CustomerException {
+        // Call the service to update the customer
+        Customer updatedCustomer = customerService.updateCustomer(customer, key);
+        // Return the updated customer with HTTP status 200 (OK)
+        return new ResponseEntity<Customer>(updatedCustomer, HttpStatus.OK);
+    }
+
+    // Method to delete a customer by ID
+    @DeleteMapping("/customers/{customerId}/{token}/{adminId}")
+    public ResponseEntity<Customer> deleteCustomerById(@PathVariable Integer customerId,
+                                                       @PathVariable String token,
+                                                       @PathVariable Integer adminId) throws CustomerException {
+        // Call the service to delete the customer
+        Customer deletedCustomer = customerService.deleteCustomer(customerId, token, adminId);
+        // Return the deleted customer with HTTP status 200 (OK)
+        return new ResponseEntity<Customer>(deletedCustomer, HttpStatus.OK);
+    }
+
+    // Method to get a customer by ID
+    @GetMapping("/customers/{customerId}/{token}/{adminId}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Integer customerId,
+                                                    @PathVariable String token,
+                                                    @PathVariable Integer adminId) throws CustomerException {
+        // Call the service to view a specific customer
+        Customer customer = customerService.viewCustomer(customerId, token, adminId);
+        // Return the customer with HTTP status 200 (OK)
+        return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+    }
+
+    // Method to get all customers
+    @GetMapping("/customers/{token}/{adminId}")
+    public ResponseEntity<List<Customer>> getAllCustomer(@PathVariable String token,
+                                                         @PathVariable Integer adminId) throws CustomerException {
+        // Call the service to view all customers
+        List<Customer> customerList = customerService.viewAllCustomer(token, adminId);
+        // Return the list of customers with HTTP status 200 (OK)
+        return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
+    }
 }
