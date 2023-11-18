@@ -64,11 +64,14 @@ Clone the Repository
 git clone https://github.com/1996shwetamg/healthy-discovery-1593.git
 ```
 
+Database Details for Nursery Database:
+
 Open MySQL Server
 ```bash
 Create a New Database in SQL: "Nursery" 
 ```
 ## Run Locally
+
 
 
 Go to the Project Directory
