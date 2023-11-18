@@ -24,54 +24,52 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*")
 public class OrdersController {
 
-	@Autowired
-	private OrderService orderService;
-	
-	@PostMapping("/orders")
-	public ResponseEntity<Orders> addOrder(@Valid @RequestBody Orders order) throws OrdersException{
-		
-		Orders savedOrder = orderService.addOrder(order);
-		
-		return new ResponseEntity<Orders>(savedOrder,HttpStatus.CREATED);
-		
-	}
-	
-	@PutMapping("/orders/{orderId}")
-	public ResponseEntity<Orders> updateOrder(@PathVariable Integer orderId ,@Valid @RequestBody Orders order) throws OrdersException{
-		
-		Orders updatedOrder = orderService.updateOrder(order,orderId);
-		
-		return new ResponseEntity<Orders>(updatedOrder,HttpStatus.OK);
-		
-	}
-	
-	@DeleteMapping("/orders/{orderId}")
-	public ResponseEntity<Orders> deleteOrder(@PathVariable Integer orderId) throws OrdersException{
-		
-		Orders deletedOrder = orderService.deleteOrderById(orderId);
-		
-		return new ResponseEntity<Orders>(deletedOrder,HttpStatus.OK);
-		
-	}
-	
-	
-	@GetMapping("/orders/{orderId}")
-	public ResponseEntity<Orders> viewOrder(@PathVariable Integer orderId) throws OrdersException{
-		
-		Orders order = orderService.viewOrder(orderId);
-		
-		return new ResponseEntity<Orders>(order,HttpStatus.OK);
-		
-	}
-	
-	@GetMapping("/orders")
-	public ResponseEntity<List<Orders>> viewAllOrder() throws OrdersException{
-		
-		List<Orders> orderList = orderService.viewAllOrders();
-		
-		return new ResponseEntity<List<Orders>>(orderList,HttpStatus.OK);
-		
-	}
-	
-	
+    @Autowired
+    private OrderService orderService;
+
+    // Method to add a new order
+    @PostMapping("/orders")
+    public ResponseEntity<Orders> addOrder(@Valid @RequestBody Orders order) throws OrdersException {
+        // Call the service to add the order
+        Orders savedOrder = orderService.addOrder(order);
+        // Return the saved order with HTTP status 201 (Created)
+        return new ResponseEntity<Orders>(savedOrder, HttpStatus.CREATED);
+    }
+
+    // Method to update an existing order by ID
+    @PutMapping("/orders/{orderId}")
+    public ResponseEntity<Orders> updateOrder(@PathVariable Integer orderId, @Valid @RequestBody Orders order)
+            throws OrdersException {
+        // Call the service to update the order
+        Orders updatedOrder = orderService.updateOrder(order, orderId);
+        // Return the updated order with HTTP status 200 (OK)
+        return new ResponseEntity<Orders>(updatedOrder, HttpStatus.OK);
+    }
+
+    // Method to delete an order by ID
+    @DeleteMapping("/orders/{orderId}")
+    public ResponseEntity<Orders> deleteOrder(@PathVariable Integer orderId) throws OrdersException {
+        // Call the service to delete the order
+        Orders deletedOrder = orderService.deleteOrderById(orderId);
+        // Return the deleted order with HTTP status 200 (OK)
+        return new ResponseEntity<Orders>(deletedOrder, HttpStatus.OK);
+    }
+
+    // Method to view an order by ID
+    @GetMapping("/orders/{orderId}")
+    public ResponseEntity<Orders> viewOrder(@PathVariable Integer orderId) throws OrdersException {
+        // Call the service to view a specific order
+        Orders order = orderService.viewOrder(orderId);
+        // Return the order with HTTP status 200 (OK)
+        return new ResponseEntity<Orders>(order, HttpStatus.OK);
+    }
+
+    // Method to view all orders
+    @GetMapping("/orders")
+    public ResponseEntity<List<Orders>> viewAllOrder() throws OrdersException {
+        // Call the service to view all orders
+        List<Orders> orderList = orderService.viewAllOrders();
+        // Return the list of orders with HTTP status 200 (OK)
+        return new ResponseEntity<List<Orders>>(orderList, HttpStatus.OK);
+    }
 }
